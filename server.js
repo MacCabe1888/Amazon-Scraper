@@ -17,7 +17,8 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/amazon_db", { useNewUrlParser: true });
+const connection = process.env.MONGODB_URI || "mongodb://localhost/amazon_db";
+mongoose.connect(connection, { useNewUrlParser: true });
 
 app.get("/scrape", (req, res) => {
   axios.get("https://www.amazon.com/gp/new-releases/books/").then(function(response) {

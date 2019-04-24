@@ -17,11 +17,11 @@ const BookSchema = new Schema({
   },
   author: {
     type: String,
-    // required: true
+    required: true
   },
   rating: {
     type: String,
-    // required: true
+    required: true
   },
   version: {
     type: String,

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const BookSchema = new Schema({
   rank: {
-    type: String,
+    type: Number,
     required: true
   },
   title: {

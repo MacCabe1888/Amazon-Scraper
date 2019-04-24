@@ -1,6 +1,6 @@
 const getBooks = () => $.getJSON("/books", data => {
   for (let i = 0; i < data.length; i++) {
-    $("#books").append(`<ul data-id="${data[i]._id}"><li>${data[i].rank}</li><li>${data[i].title}</li><li>${data[i].imgLink}</li><li>${data[i].author}</li><li>${data[i].rating}</li><li>${data[i].version}</li><li>${data[i].price}</li><li>${data[i].releaseDate}</li></ul>`);
+    $("#books").append(`<ul data-id="${data[i]._id}"><li>#${data[i].rank}</li><li>${data[i].title}</li><li>${data[i].imgLink}</li><li>${data[i].author}</li><li>${data[i].rating}</li><li>${data[i].version}</li><li>${data[i].price}</li><li>${data[i].releaseDate}</li></ul>`);
   }
 });
 

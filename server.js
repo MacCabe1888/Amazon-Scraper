@@ -27,16 +27,16 @@ app.get("/scrape", (req, res) => {
     await db.Book.remove({});
 
     $(".zg-item-immersion").each(async (i, element) => {
-      const book = await {};
+      const book = {};
 
-      book.rank = await $(element).find(".zg-badge-text").text();
-      book.title = await $(element).find("img").attr("alt");
-      book.imgLink = await $(element).find("img").attr("src");
-      book.author = await $(element).find(".a-link-child").text();
-      book.rating = await $(element).find(".a-icon-alt").text();
-      book.version = await $(element).find(".a-color-secondary").text();
-      book.price = await $(element).find(".p13n-sc-price").text();
-      book.releaseDate = await $(element).find(".zg-release-date").text();
+      book.rank = $(element).find(".zg-badge-text").text().split("#")[1];
+      book.title = $(element).find("img").attr("alt");
+      book.imgLink = $(element).find("img").attr("src");
+      book.author = $(element).find(".a-link-child").text();
+      book.rating = $(element).find(".a-icon-alt").text();
+      book.version = $(element).find(".a-color-secondary").text();
+      book.price = $(element).find(".p13n-sc-price").text();
+      book.releaseDate = $(element).find(".zg-release-date").text();
 
       await db.Book.create(book)
         .then(dbBook => {
@@ -53,7 +53,7 @@ app.get("/scrape", (req, res) => {
 
 app.get("/books", async (req, res) => {
   try {
-    const books = await db.Book.find();
+    const books = await db.Book.find().sort({ rank: 1 });
     res.json(books);
   } catch(e) {
     res.json(e);

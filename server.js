@@ -88,6 +88,15 @@ app.post("/books/:id", async (req, res) => {
   }
 });
 
+app.delete("/notes/:id", async (req, res) => {
+  try {
+    await db.Note.deleteOne({ _id: req.params.id });
+    res.json("deleted");
+  } catch(e) {
+    res.json(e);
+  }
+});
+
 app.listen(PORT, function() {
   console.log(`App running on port ${PORT}`);
 });

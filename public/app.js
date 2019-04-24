@@ -26,8 +26,11 @@ $(document).on("click", "ul", function() {
       $("#notes").append('<textarea id="bodyinput" name="body"></textarea>');
       $("#notes").append(`<button data-id="${data._id}" id="savenote">Save Note</button>`);
       for (let i = 0; i < data.notes.length; i++) {
-        $("#notes").append(`<h4 class="title" name="title">${data.notes[i].title}</h4>`);
-        $("#notes").append(`<p class="body" name="body">${data.notes[i].body}</p>`);
+        const newNote = $(`<div id=${data.notes[i]._id} class="savednote">`);
+        $(newNote).append(`<button id=${data.notes[i]._id} class="deletenote">X</button>`);
+        $(newNote).append(`<h4 class="title" name="title">${data.notes[i].title}</h4>`);
+        $(newNote).append(`<p class="body" name="body">${data.notes[i].body}</p>`);
+        $("#notes").append(newNote);
       }
     });
 });
@@ -43,11 +46,25 @@ $(document).on("click", "#savenote", function() {
     }
   }).then(data => {
       const note = data;
-      $("#notes").append(`<h4 class="title" name="title">${note.title}</h4>`);
-      $("#notes").append(`<p class="body" name="body">${note.body}</p>`);
+      const newNote = $(`<div id=${note._id} class="savednote">`);
+      $(newNote).append(`<button id=${note._id} class="deletenote">X</button>`);
+      $(newNote).append(`<h4 class="title" name="title">${note.title}</h4>`);
+      $(newNote).append(`<p class="body" name="body">${note.body}</p>`);
+      $("#notes").append(newNote);
     });
   $("#titleinput").val("");
   $("#bodyinput").val("");
+});
+
+$(document).on("click", ".deletenote", function() {
+  const thisId = $(this).attr("id");
+  $.ajax({
+    method: "DELETE",
+    url: "/notes/" + thisId
+  }).then(function(response) {
+      console.log(response);
+      $(`#${thisId}`).empty();
+    });
 });
 
 getBooks();

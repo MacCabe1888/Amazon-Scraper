@@ -21,8 +21,10 @@ const connection = process.env.MONGODB_URI || "mongodb://localhost/amazon_db";
 mongoose.connect(connection, { useNewUrlParser: true });
 
 app.get("/scrape", (req, res) => {
-  axios.get("https://www.amazon.com/gp/new-releases/books/").then(function(response) {
+  axios.get("https://www.amazon.com/gp/new-releases/books/").then(async response => {
     const $ = cheerio.load(response.data);
+
+    await db.Book.remove({});
 
     $(".zg-item-immersion").each(async (i, element) => {
       const book = await {};
@@ -62,7 +64,7 @@ app.get("/books/:id", async (req, res) => {
   try {
     const book = await db.Book.findOne({
       _id: req.params.id
-    }).populate("note");
+    }).populate("notes");
     res.json(book);
   } catch(e) {
     res.json(e);
@@ -76,10 +78,11 @@ app.post("/books/:id", async (req, res) => {
     await db.Book.findOneAndUpdate({
       _id: req.params.id
     }, {
-      $push: { note: note._id }
+      $push: { notes: note._id }
     }, {
       new: true
     });
+    res.json(note);
   } catch(e) {
     res.json(e);
   }

@@ -17,8 +17,16 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+const exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 const connection = process.env.MONGODB_URI || "mongodb://localhost/amazon_db";
 mongoose.connect(connection, { useNewUrlParser: true });
+
+app.get("/", (req,res) => {
+  res.render("index");
+});
 
 app.get("/scrape", (req, res) => {
   axios.get("https://www.amazon.com/gp/new-releases/books/").then(async response => {

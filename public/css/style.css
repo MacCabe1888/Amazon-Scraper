@@ -21,7 +21,7 @@ body {
   width: 30%;
 }
 
-textarea, input {
+input, textarea {
   display: block;
   width: 100%;
   background-color: #FCF5C7;
@@ -35,4 +35,13 @@ input {
 textarea {
   height: 200px;
   font-size: 18px;
+}
+
+.note-container {
+  margin-top: 5px;
+  border: 1px solid black;
+}
+
+.delete-note {
+  float: right;
 }

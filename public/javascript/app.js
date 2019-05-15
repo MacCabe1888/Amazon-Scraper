@@ -1,6 +1,6 @@
 const getBooks = () => $.getJSON("/books", data => {
   for (let i = 0; i < data.length; i++) {
-    $("#books").append(`<ul data-id="${data[i]._id}"><li>#${data[i].rank}</li><li>${data[i].title}</li><li>${data[i].imgLink}</li><li>${data[i].author}</li><li>${data[i].rating}</li><li>${data[i].version}</li><li>${data[i].price}</li><li>${data[i].releaseDate}</li></ul>`);
+    $("#books").append(`<h4>#${data[i].rank}</h4><ul data-id="${data[i]._id}"><li>${data[i].title}</li><li>${data[i].imgLink}</li><li>${data[i].author}</li><li>${data[i].rating}</li><li>${data[i].version}</li><li>${data[i].price}</li><li>${data[i].releaseDate}</li></ul><button class="add-note" data-id="${data[i]._id}">Add a Note</button>`);
   }
 });
 
@@ -14,7 +14,7 @@ $(document).on("click", "#scraper", () => {
     });
 });
 
-$(document).on("click", "ul", function() {
+$(document).on("click", ".add-note", function() {
   $("#notes").empty();
   const thisId = $(this).attr("data-id");
   $.ajax({
@@ -22,20 +22,22 @@ $(document).on("click", "ul", function() {
     url: "/books/" + thisId
   }).then(data => {
       $("#notes").append(`<h2>${data.title}</h2>`);
-      $("#notes").append('<input id="titleinput" name="title">');
-      $("#notes").append('<textarea id="bodyinput" name="body"></textarea>');
-      $("#notes").append(`<button data-id="${data._id}" id="savenote">Save Note</button>`);
+      $("#notes").append('<input id="titleinput" name="title" placeholder="Title">');
+      $("#notes").append('<textarea id="bodyinput" name="body" placeholder="Note"></textarea>');
+      $("#notes").append(`<button data-id="${data._id}" class="save-note">Save Note</button>`);
       for (let i = 0; i < data.notes.length; i++) {
-        const newNote = $(`<div id=${data.notes[i]._id} class="savednote">`);
-        $(newNote).append(`<button id=${data.notes[i]._id} class="deletenote">X</button>`);
-        $(newNote).append(`<h4 class="title" name="title">${data.notes[i].title}</h4>`);
-        $(newNote).append(`<p class="body" name="body">${data.notes[i].body}</p>`);
+        const newNote = $(`<div id=${data.notes[i]._id} class="saved-note">`);
+        const noteContainer = $('<div class="note-container">');
+        $(noteContainer).append(`<button id=${data.notes[i]._id} class="delete-note">X</button>`);
+        $(noteContainer).append(`<h4 class="title" name="title">${data.notes[i].title}</h4>`);
+        $(noteContainer).append(`<p class="body" name="body">${data.notes[i].body}</p>`);
+        $(newNote).append(noteContainer);
         $("#notes").append(newNote);
       }
     });
 });
 
-$(document).on("click", "#savenote", function() {
+$(document).on("click", ".save-note", function() {
   const thisId = $(this).attr("data-id");
   $.ajax({
     method: "POST",
@@ -46,17 +48,19 @@ $(document).on("click", "#savenote", function() {
     }
   }).then(data => {
       const note = data;
-      const newNote = $(`<div id=${note._id} class="savednote">`);
-      $(newNote).append(`<button id=${note._id} class="deletenote">X</button>`);
-      $(newNote).append(`<h4 class="title" name="title">${note.title}</h4>`);
-      $(newNote).append(`<p class="body" name="body">${note.body}</p>`);
+      const newNote = $(`<div id=${note._id} class="saved-note">`);
+      const noteContainer = $('<div class="note-container">');
+      $(noteContainer).append(`<button id=${note._id} class="delete-note">X</button>`);
+      $(noteContainer).append(`<h4 class="title" name="title">${note.title}</h4>`);
+      $(noteContainer).append(`<p class="body" name="body">${note.body}</p>`);
+      $(newNote).append(noteContainer);
       $("#notes").append(newNote);
     });
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
 
-$(document).on("click", ".deletenote", function() {
+$(document).on("click", ".delete-note", function() {
   const thisId = $(this).attr("id");
   $.ajax({
     method: "DELETE",

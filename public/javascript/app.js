@@ -7,8 +7,8 @@ const getBooks = () => $.getJSON("/books", data => {
     $(ul).append(`<li>${data[i].price}</li>`);
     $(ul).append(`<li>${data[i].releaseDate}</li>`);
     const newBook = $('<div class="book">');
-    $(newBook).append(`<h4>#${data[i].rank}</h4>`);
-    $(newBook).append(`<h4>${data[i].title}</h4>`);
+    $(newBook).append(`<h3>#${data[i].rank}</h3>`);
+    $(newBook).append(`<h3>${data[i].title}</h3>`);
     $(newBook).append(`<img src="${data[i].imgLink}">`);
     $(newBook).append(ul);
     $(newBook).append(`<button class="add-note" data-id="${data[i]._id}">Add a Note</button>`);

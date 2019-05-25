@@ -1,6 +1,18 @@
 const getBooks = () => $.getJSON("/books", data => {
   for (let i = 0; i < data.length; i++) {
-    $("#books").append(`<h4>#${data[i].rank}</h4><h4>${data[i].title}</h4><img src="${data[i].imgLink}"><ul data-id="${data[i]._id}"><li>${data[i].author}</li><li>${data[i].rating}</li><li>${data[i].version}</li><li>${data[i].price}</li><li>${data[i].releaseDate}</li></ul><button class="add-note" data-id="${data[i]._id}">Add a Note</button>`);
+    const ul = $(`<ul data-id="${data[i]._id}">`);
+    $(ul).append(`<li>${data[i].author}</li>`);
+    $(ul).append(`<li>${data[i].rating}</li>`);
+    $(ul).append(`<li>${data[i].version}</li>`);
+    $(ul).append(`<li>${data[i].price}</li>`);
+    $(ul).append(`<li>${data[i].releaseDate}</li>`);
+    const newBook = $('<div class="book">');
+    $(newBook).append(`<h4>#${data[i].rank}</h4>`);
+    $(newBook).append(`<h4>${data[i].title}</h4>`);
+    $(newBook).append(`<img src="${data[i].imgLink}">`);
+    $(newBook).append(ul);
+    $(newBook).append(`<button class="add-note" data-id="${data[i]._id}">Add a Note</button>`);
+    $("#books").append(newBook);
   }
 });
 

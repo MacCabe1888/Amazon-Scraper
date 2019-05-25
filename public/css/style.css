@@ -12,22 +12,23 @@ h1 {
 }
 
 #scraper {
-  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 60%;
+  width: 50%;
+  margin: 0 5% 20px 5%;
+  text-align: center;
 }
 
-#scraper > button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: fit-content;
+#scraper > div > button {
+  text-transform: uppercase;
 }
 
 #notes-header {
   float: right;
-  width: 40%;
+  width: 30%;
+  margin-left: 5%;
+  margin-right: 5%;
   text-align: center;
 }
 
@@ -57,7 +58,7 @@ h1 {
   width: 275px;
   padding: 5px 20px 20px 20px;
   border: 3px inset burlywood;
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
   background-color: #ffffff;
   text-align: center;
 }

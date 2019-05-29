@@ -24,6 +24,13 @@ h1 {
   text-transform: uppercase;
 }
 
+button {
+  font-size: 18px;
+  background-color: antiquewhite;
+  border: 2px inset burlywood;
+  box-shadow: 2px 2px 5px burlywood;
+}
+
 #notes-header {
   float: right;
   width: 30%;
@@ -52,6 +59,7 @@ h1 {
   margin-left: 5%;
   margin-right: 5%;
   width: 30%;
+  text-align: center;
 }
 
 .book {
@@ -67,6 +75,10 @@ li {
   text-align: left;
 }
 
+h2 {
+  text-align: center;
+}
+
 input, textarea {
   display: block;
   width: 100%;
@@ -76,6 +88,7 @@ input, textarea {
 input {
   height: 36px;
   font-size: 24px;
+  text-align: center;
 }
 
 textarea {
@@ -84,6 +97,7 @@ textarea {
 }
 
 .note-container {
+  position: relative;
   border: 1px solid black;
   margin-top: 5px;
 }
@@ -94,5 +108,14 @@ textarea {
 }
 
 .delete-note {
-  float: right;
+  position: absolute;
+  right: 0;
+}
+
+h4 {
+  margin-top: 45px;
+}
+
+p.body {
+  text-align: left;
 }

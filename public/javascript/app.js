@@ -11,7 +11,7 @@ const getBooks = () => $.getJSON("/books", data => {
     $(newBook).append(`<h3>${data[i].title}</h3>`);
     $(newBook).append(`<img src="${data[i].imgLink}">`);
     $(newBook).append(ul);
-    $(newBook).append(`<button class="add-note" data-id="${data[i]._id}">Add a Note</button>`);
+    $(newBook).append(`<button class="add-note" data-id="${data[i]._id}">Notes</button>`);
     $("#books").append(newBook);
   }
 });
@@ -40,7 +40,7 @@ $(document).on("click", ".add-note", function() {
       for (let i = 0; i < data.notes.length; i++) {
         const newNote = $(`<div id=${data.notes[i]._id} class="saved-note">`);
         const noteContainer = $('<div class="note-container">');
-        $(noteContainer).append(`<button id=${data.notes[i]._id} class="delete-note">X</button>`);
+        $(noteContainer).append(`<div id=${note._id} class="delete-note"><button>X</button></div>`);
         $(noteContainer).append(`<h4 class="title" name="title">${data.notes[i].title}</h4>`);
         $(noteContainer).append(`<p class="body" name="body">${data.notes[i].body}</p>`);
         $(newNote).append(noteContainer);
@@ -62,7 +62,7 @@ $(document).on("click", ".save-note", function() {
       const note = data;
       const newNote = $(`<div id=${note._id} class="saved-note">`);
       const noteContainer = $('<div class="note-container">');
-      $(noteContainer).append(`<button id=${note._id} class="delete-note">X</button>`);
+      $(noteContainer).append(`<div id=${note._id} class="delete-note"><button>X</button></div>`);
       $(noteContainer).append(`<h4 class="title" name="title">${note.title}</h4>`);
       $(noteContainer).append(`<p class="body" name="body">${note.body}</p>`);
       $(newNote).append(noteContainer);

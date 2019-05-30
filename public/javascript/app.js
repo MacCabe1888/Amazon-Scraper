@@ -7,7 +7,7 @@ const getBooks = () => $.getJSON("/books", data => {
     $(ul).append(`<li>${data[i].price}</li>`);
     $(ul).append(`<li>${data[i].releaseDate}</li>`);
     const newBook = $('<div class="book">');
-    $(newBook).append(`<h3>#${data[i].rank}</h3>`);
+    $(newBook).append(`<h3 class="rank">#${data[i].rank}</h3>`);
     $(newBook).append(`<h3>${data[i].title}</h3>`);
     $(newBook).append(`<img src="${data[i].imgLink}">`);
     $(newBook).append(ul);
@@ -40,7 +40,7 @@ $(document).on("click", ".add-note", function() {
       for (let i = 0; i < data.notes.length; i++) {
         const newNote = $(`<div id=${data.notes[i]._id} class="saved-note">`);
         const noteContainer = $('<div class="note-container">');
-        $(noteContainer).append(`<div id=${note._id} class="delete-note"><button>X</button></div>`);
+        $(noteContainer).append(`<div id=${data.notes[i]._id} class="delete-note"><button>X</button></div>`);
         $(noteContainer).append(`<h4 class="title" name="title">${data.notes[i].title}</h4>`);
         $(noteContainer).append(`<p class="body" name="body">${data.notes[i].body}</p>`);
         $(newNote).append(noteContainer);
@@ -77,8 +77,7 @@ $(document).on("click", ".delete-note", function() {
   $.ajax({
     method: "DELETE",
     url: "/notes/" + thisId
-  }).then(function(response) {
-      console.log(response);
+  }).then(function() {
       $(`#${thisId}`).empty();
     });
 });

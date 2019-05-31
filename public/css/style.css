@@ -85,7 +85,7 @@ h2 {
   text-align: center;
 }
 
-input, textarea, .note-container {
+input, textarea {
   display: block;
   width: 100%;
   background-color: antiquewhite;
@@ -109,10 +109,12 @@ textarea {
 
 .note-container {
   position: relative;
+  width: calc(100% - 16px);
   padding: 0 10px;
   border: 2px inset burlywood;
   margin-top: 5px;
   margin-bottom: 15px;
+  background-color: antiquewhite;
 }
 
 .delete-note {

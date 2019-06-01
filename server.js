@@ -105,6 +105,19 @@ app.delete("/notes/:id", async (req, res) => {
   }
 });
 
+app.get("/notes", (req, res) => {
+  res.render("notes");
+});
+
+app.get("/notes/saved", async (req, res) => {
+  try {
+    const notes = await db.Note.find().sort({ _id: -1 });
+    res.json(notes);
+  } catch(e) {
+    res.json(e);
+  }
+});
+
 app.listen(PORT, function() {
   console.log(`App running on port ${PORT}`);
 });

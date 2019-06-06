@@ -1,16 +1,25 @@
 const getNotes = () => $.getJSON("/notes/saved", data => {
-  const ol = $(`<ol id="notes-list">`);
   for (let i = 0; i < data.length; i++) {
-    const note = $('<div class="archived-note">');
-    const li = $(`<li id=${i + 1}>`);
-    $(li).append(`<h3>${data[i].bookTitle}</h3>`);
-    $(li).append(`<h3>${data[i].bookAuthor}</h3>`);
-    $(li).append(`<h3>${data[i].title}</h3>`);
-    $(li).append(`<p>${data[i].body}</p>`);
-    $(note).append(li);
-    $(ol).append(note);
-    $("#archived-notes").append(ol);
+    const note = data[i];
+    const archivedNote = $(`<div id=${note._id} class="archived-note">`);
+    const noteContainer = $('<div class="note-container">');
+    $(noteContainer).append(`<div id=${note._id} class="delete-note"><button>X</button></div>`);
+    $(noteContainer).append(`<h4><i>${note.bookTitle}</i> by ${note.bookAuthor}</h4>`);
+    $(noteContainer).append(`<strong>${note.title}</strong>`);
+    $(noteContainer).append(`<p>${note.body}</p>`);
+    $(archivedNote).append(noteContainer);
+    $("#archived-notes").append(archivedNote);
   }
+});
+
+$(document).on("click", ".delete-note", function() {
+  const thisId = $(this).attr("id");
+  $.ajax({
+    method: "DELETE",
+    url: "/notes/" + thisId
+  }).then(function() {
+      $(`#${thisId}`).empty();
+    });
 });
 
 getNotes();

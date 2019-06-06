@@ -111,7 +111,7 @@ app.get("/notes", (req, res) => {
 
 app.get("/notes/saved", async (req, res) => {
   try {
-    const notes = await db.Note.find().sort({ bookAuthor: 1 });
+    const notes = await db.Note.find().sort({ _id: -1 });
     res.json(notes);
   } catch(e) {
     res.json(e);

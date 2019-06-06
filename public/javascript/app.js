@@ -37,7 +37,7 @@ $(document).on("click", ".add-note", function() {
       $("#notes").append(`<h2>${data.title}</h2>`);
       $("#notes").append('<input id="titleinput" name="title" placeholder="Title">');
       $("#notes").append('<textarea id="bodyinput" name="body" placeholder="Note"></textarea>');
-      $("#notes").append(`<button data-id="${data._id}" class="save-note">Save Note</button>`);
+      $("#notes").append(`<button data-id="${data._id}" data-title="${data.title}" data-author="${data.author}" class="save-note">Save Note</button>`);
       for (let i = 0; i < data.notes.length; i++) {
         const newNote = $(`<div id=${data.notes[i]._id} class="saved-note">`);
         const noteContainer = $('<div class="note-container">');
@@ -52,11 +52,15 @@ $(document).on("click", ".add-note", function() {
 
 $(document).on("click", ".save-note", function() {
   const thisId = $(this).attr("data-id");
+  const bookTitle = $(this).attr("data-title");
+  const bookAuthor = $(this).attr("data-author");
   if ($("#titleinput").val() && $("#bodyinput").val()) {
     $.ajax({
       method: "POST",
       url: "/books/" + thisId,
       data: {
+        bookTitle,
+        bookAuthor,
         title: $("#titleinput").val(),
         body: $("#bodyinput").val()
       }

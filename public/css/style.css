@@ -2,6 +2,19 @@ body {
   background-image: url(/images/background.jpg);
 }
 
+#wrapper {
+  position: relative;
+  width: 75%;
+  border: 5px inset burlywood;
+  margin: 5% auto;
+  background-color: blanchedalmond;
+}
+
+nav {
+  position: absolute;
+  right: 0;
+}
+
 h1 {
   margin-bottom: 0;
   text-align: center;
@@ -35,13 +48,6 @@ button {
   width: 30%;
   margin: 0 5%;
   text-align: center;
-}
-
-#wrapper {
-  width: 75%;
-  border: 5px inset burlywood;
-  margin: 5% auto;
-  background-color: blanchedalmond;
 }
 
 #books {
@@ -137,4 +143,9 @@ p.body {
 
 #notes-info {
   text-align: center;
+}
+
+.archived-note {
+  width: calc(100% - 38px);
+  margin-left: 15px;
 }

@@ -3,6 +3,8 @@ const getNotes = () => $.getJSON("/notes/saved", data => {
   for (let i = 0; i < data.length; i++) {
     const note = $('<div class="archived-note">');
     const li = $(`<li id=${i + 1}>`);
+    $(li).append(`<h3>${data[i].bookTitle}</h3>`);
+    $(li).append(`<h3>${data[i].bookAuthor}</h3>`);
     $(li).append(`<h3>${data[i].title}</h3>`);
     $(li).append(`<p>${data[i].body}</p>`);
     $(note).append(li);
